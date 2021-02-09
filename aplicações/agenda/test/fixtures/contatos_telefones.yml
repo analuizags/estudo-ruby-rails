@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  contato_id: 
+  telefone_id: 
+
+two:
+  contato_id: 
+  telefone_id: 

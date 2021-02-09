@@ -1,0 +1,55 @@
+<%= form_for(@contato, html: { class: "form-style-5" }) do |f| %>
+
+  <fieldset>
+    <legend><span class="number">1</span> Contato</legend>
+
+    <div class="field">
+      <%= f.text_field :nome, placeholder: "#{:nome}"%>
+    </div>
+    <div class="field">
+      <%= f.text_field :email, placeholder: "#{:email}" %>
+    </div>
+    <div class="field">
+      <%= f.collection_select(:tipo_id, @opcoes, :id, :descricao)%>
+    </div>
+
+    <legend><span class="number">2</span> Endereço</legend>
+    <%= f.fields_for :endereco do |campos_endereco| %>
+      <%= campos_endereco.text_field :endereco, placeholder: "#{:endereco}" %>
+      <%= campos_endereco.text_field :cidade, placeholder: "#{:cidade}" %>
+      <%= campos_endereco.select :estado, opcoes_estados(@contato.endereco.estado) %>
+    <% end %>  
+
+    <span style="display: flex; width: 100%;">
+      <legend><span class="number">3</span> Telefones</legend> &nbsp;&nbsp;
+      <%= link_to_add_association('[+]', f, :telefones) %>
+    </span>
+    
+    <div id="telefones">
+      <%= f.fields_for :telefones do |campos_telefones| %>
+        <%= render partial: "telefone_fields", locals: { f: campos_telefones }%>
+      <% end %>
+    </div>
+    
+    <hr><br>
+    <div class="field">
+      <%= f.text_field :observacao, placeholder: "#{:observacao}" %>
+    </div>
+
+    <% if @contato.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= "#{pluralize(@contato.errors.count, '')}" "#{t('message.errors')}"%></h2>
+
+        <ul>
+        <% @contato.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %><br>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </fieldset>
+<% end %>

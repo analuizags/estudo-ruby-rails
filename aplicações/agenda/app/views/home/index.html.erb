@@ -1,0 +1,12 @@
+<div class="form-style-5">
+  <h1>Seja bem-vinda <%= mostrar_meu_nome %></h1>
+  <p>Data: <%= l Date.today%></p>
+  <!-- rails/info/routes -->
+
+  <ul>
+    <li><%= link_to "Tipos", tipos_path %></li>
+    <li><%= link_to "Contatos" , contatos_path %></li>
+    <li><%= link_to "Telefones" , telefones_path %></li>
+    <li><%= link_to "Endereços" , enderecos_path %></li>
+  </ul>
+</div>
