@@ -1,4 +1,5 @@
 ## Gerar aplicação Ruby on Rails para desenvolvimento
+<br />
 
 Com os arquivos desse diretório na raiz onde será sua aplicação, gere o aplicativo esqueleto do Rails usando:
 
