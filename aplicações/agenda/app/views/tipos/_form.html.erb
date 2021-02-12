@@ -1,21 +1,32 @@
 <%= form_for(@tipo, html: { class: "form-style-5" }) do |f| %>
-  <% if @tipo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tipo.errors.count, "error") %> prohibited this tipo from being saved:</h2>
 
-      <ul>
-      <% @tipo.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <h1>Novo Tipo</h1><br>
+
+  <fieldset>
+    <legend><span class="number">1</span> Descricao</legend>
+    <div class="field">
+      <%= f.text_field :descricao, placeholder: "#{:descricao}" %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :descricao %><br>
-    <%= f.text_field :descricao %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <% if @tipo.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@tipo.errors.count, "error") %> prohibited this tipo from being saved:</h2>
+
+        <ul>
+        <% @tipo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="actions" style="display: flex; justify-content: space-around;">
+      <span style="width: 40%">
+        <%= f.submit t('buttons.save'), class: "btn btn-success btn-block"%>
+      </span>
+      <span style="width: 40%">
+        <%= link_to t('buttons.back'), tipos_path, class: "btn btn-primary btn-block"%>
+      </span>
+    </div>
+  </fieldset>
 <% end %>

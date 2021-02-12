@@ -7,14 +7,14 @@ table {
 }
 
 .form-style-5 {
-  max-width: 500px;
+  margin-bottom: 100px !important;
+  max-width: 700px;
   padding: 10px 20px;
   background: #f4f7f8;
   margin: 10px auto;
   padding: 20px;
   background: #f4f7f8;
   border-radius: 8px;
-  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .form-style-5 fieldset {
@@ -41,7 +41,6 @@ table {
 .form-style-5 input[type="url"],
 .form-style-5 textarea,
 .form-style-5 select {
-  font-family: Georgia, "Times New Roman", Times, serif;
   background: rgba(255, 255, 255, .1);
   border: none;
   border-radius: 4px;
@@ -92,7 +91,7 @@ table {
   border-radius: 15px 15px 15px 0px;
 }
 
-.form-style-5 input[type="submit"],
+// .form-style-5 input[type="submit"],
 .form-style-5 input[type="button"] {
   position: relative;
   display: block;
@@ -109,7 +108,7 @@ table {
   margin-bottom: 10px;
 }
 
-.form-style-5 input[type="submit"]:hover,
+// .form-style-5 input[type="submit"]:hover,
 .form-style-5 input[type="button"]:hover {
   background: #109177;
 }

@@ -1,4 +1,6 @@
 <%= form_for(@contato, html: { class: "form-style-5" }) do |f| %>
+  
+  <h1>Novo Contato</h1><br>
 
   <fieldset>
     <legend><span class="number">1</span> Contato</legend>
@@ -22,7 +24,7 @@
 
     <span style="display: flex; width: 100%;">
       <legend><span class="number">3</span> Telefones</legend> &nbsp;&nbsp;
-      <%= link_to_add_association('[+]', f, :telefones) %>
+      <%= link_to_add_association("<span class='glyphicon glyphicon-plus-sign' style='padding-top:5px'></span>".html_safe, f, :telefones) %>
     </span>
     
     <div id="telefones">
@@ -31,7 +33,7 @@
       <% end %>
     </div>
     
-    <hr><br>
+    <legend><span class="number">4</span> Observações</legend>
     <div class="field">
       <%= f.text_field :observacao, placeholder: "#{:observacao}" %>
     </div>
@@ -48,8 +50,13 @@
       </div>
     <% end %><br>
 
-    <div class="actions">
-      <%= f.submit %>
+    <div class="actions" style="display: flex; justify-content: space-around;">
+      <span style="width: 40%">
+        <%= f.submit t('buttons.save'), class: "btn btn-success btn-block"%>
+      </span>
+      <span style="width: 40%">
+        <%= link_to t('buttons.back'), contatos_path, class: "btn btn-primary btn-block"%>
+      </span>
     </div>
   </fieldset>
 <% end %>
