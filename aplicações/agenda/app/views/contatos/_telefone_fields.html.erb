@@ -2,5 +2,5 @@
   <%= f.text_field :ddd, placeholder: "#{:ddd}", style: "width: 19%" %>
   <span style="width: 6%; display: inline-block;"></span>
   <%= f.text_field :numero, placeholder: "#{:numero}", style: "width: 67%" %> &nbsp;
-  <%= link_to_remove_association('[-]', f)%>
+  <%= link_to_remove_association("<span class='glyphicon glyphicon-minus-sign'></span>".html_safe, f)%>
 </div>

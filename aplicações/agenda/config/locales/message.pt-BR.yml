@@ -2,4 +2,7 @@
   message:
     confirm: Você tem certeza?
     listing: Listando
-    errors: erros não permitiram salvar os registro
+    errors: erros não permitiram salvar os registro!
+    created: Item criado com sucesso!
+    updated: Item atualizado com sucesso!
+    destroyed: Item excluido com sucesso!

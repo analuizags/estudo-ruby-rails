@@ -3,10 +3,15 @@
   <p>Data: <%= l Date.today%></p>
   <!-- rails/info/routes -->
 
+  <br>
   <ul>
-    <li><%= link_to "Tipos", tipos_path %></li>
-    <li><%= link_to "Contatos" , contatos_path %></li>
-    <li><%= link_to "Telefones" , telefones_path %></li>
-    <li><%= link_to "Endereços" , enderecos_path %></li>
+    <li>
+      <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> &nbsp;
+      <%= link_to "Tipos", tipos_path %>
+    </li>
+    <li>
+      <span class="glyphicon glyphicon-list" aria-hidden="true"></span> &nbsp;
+      <%= link_to "Contatos" , contatos_path %>
+    </li>
   </ul>
 </div>
