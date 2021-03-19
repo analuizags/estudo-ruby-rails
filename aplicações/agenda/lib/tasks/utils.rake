@@ -31,7 +31,7 @@ namespace :utils do
         
         Telefone.create!(
           ddd: /\d{2}/.match(numero).to_s.to_i,
-          numero: /\d{5}-\d{4}/.match(numero).to_s.split('-').join.to_i,
+          numero: /\d{5}-\d{4}/.match(numero).to_s.gsub(/-/, "").to_i,
           contato: contato
         )
       end
