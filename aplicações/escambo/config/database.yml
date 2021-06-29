@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password: password
+  pool: 5
+
+development:
+  <<: *default
+  database: escambo_development
+
+test:
+  <<: *default
+  database: escambo_test
+
+production:
+  <<: *default
+  database: escambo_production
+  username: escambo
+  password: <%= ENV['ESCAMBO_DATABASE_PASSWORD'] %>
