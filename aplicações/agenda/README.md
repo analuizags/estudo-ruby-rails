@@ -1,6 +1,6 @@
 ## Executar aplicação com doker
 
-```
+```bash
   $ docker-compose build
   $ docker-compose up
 ```
@@ -9,6 +9,6 @@
 
 Irá gerar dados aleatórios a partir da GEM Faker
 
-```
-  rake db:create db:migrate db:seed utils:seed
+```bash
+  $ rake db:create db:migrate db:seed utils:seed
 ```
