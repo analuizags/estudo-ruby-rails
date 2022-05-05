@@ -1,6 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Fix log outputs in docker
+  $stdout.sync = true
+
   # Better Errors
   BetterErrors::Middleware.allow_ip! '172.20.0.1'
 
