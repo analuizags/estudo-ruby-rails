@@ -14,3 +14,6 @@
 
 # Ignore sample files for templates
 /public/templates
+
+# Ignore environment variables
+.env
