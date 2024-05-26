@@ -5,10 +5,10 @@
 <table>
   <thead>
     <tr>
+      <th>Image</th>
       <th>Name</th>
       <th>Description</th>
       <th>Price</th>
-      <th>Image</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,10 +16,10 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <td><%= image_tag product.image&.url, width: 150, height: 150 %></td>
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.price %></td>
-        <td><%= product.image %></td>
         <td><%= link_to 'Show', product %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -30,4 +30,5 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<%= link_to 'New Product', new_product_path %><br>
+<%= link_to 'Log out', destroy_admin_session_path, method: :delete %>

@@ -17,7 +17,7 @@
 
 <p>
   <strong>Image:</strong>
-  <%= @product.image %>
+  <%= image_tag @product.image&.url, width: 150, height: 150 %>
 </p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |

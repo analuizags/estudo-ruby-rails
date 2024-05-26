@@ -1,9 +1,10 @@
 class PhonesController < ApplicationController
+  before_action :authenticate_customer!
   before_action :set_phone, only: %i[ show edit update destroy ]
 
   # GET /phones or /phones.json
   def index
-    @phones = Phone.all
+    @phones = Phone.where(customer_id: current_customer.id)
   end
 
   # GET /phones/1 or /phones/1.json
@@ -22,6 +23,7 @@ class PhonesController < ApplicationController
   # POST /phones or /phones.json
   def create
     @phone = Phone.new(phone_params)
+    @phone.customer = current_customer
 
     respond_to do |format|
       if @phone.save

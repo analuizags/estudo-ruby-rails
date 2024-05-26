@@ -1,4 +1,6 @@
 class CustomersController < ApplicationController
+  before_action :authenticate_customer!
+  before_action :authenticate_admin!, only: [:index, :show]
   before_action :set_customer, only: %i[ show edit update destroy ]
 
   # GET /customers or /customers.json
@@ -11,11 +13,11 @@ class CustomersController < ApplicationController
   end
 
   # GET /customers/new
-  def new
-    @customer = Customer.new
-    @customer.addresses.build
-    @customer.phones.build
-  end
+  # def new
+  #   @customer = Customer.new
+  #   @customer.addresses.build
+  #   @customer.phones.build
+  # end
 
   # GET /customers/1/edit
   def edit
@@ -24,19 +26,19 @@ class CustomersController < ApplicationController
   end
 
   # POST /customers or /customers.json
-  def create
-    @customer = Customer.new(customer_params)
+  # def create
+  #   @customer = Customer.new(customer_params)
 
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to customer_url(@customer), notice: "Customer was successfully created." }
-        format.json { render :show, status: :created, location: @customer }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @customer.save
+  #       format.html { redirect_to customer_url(@customer), notice: "Customer was successfully created." }
+  #       format.json { render :show, status: :created, location: @customer }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @customer.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /customers/1 or /customers/1.json
   def update
@@ -72,7 +74,6 @@ class CustomersController < ApplicationController
       params.require(:customer).permit(
         :name,
         :document,
-        :email,
         :birthdate,
         addresses_attributes: [:id, :street, :number, :district, :city, :state, :zipcode, :_destroy],
         phones_attributes: [:id, :ddd, :number, :_destroy])

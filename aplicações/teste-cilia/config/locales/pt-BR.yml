@@ -1,0 +1,142 @@
+pt-BR:
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: deve ser aceito
+      blank: não pode ficar em branco
+      confirmation: não é igual a %{attribute}
+      empty: não pode ficar vazio
+      equal_to: deve ser igual a %{count}
+      even: deve ser par
+      exclusion: não está disponível
+      greater_than: deve ser maior que %{count}
+      greater_than_or_equal_to: deve ser maior ou igual a %{count}
+      in: deve estar em %{count}
+      inclusion: não está incluído na lista
+      invalid: não é válido
+      less_than: deve ser menor que %{count}
+      less_than_or_equal_to: deve ser menor ou igual a %{count}
+      model_invalid: 'A validação falhou: %{errors}'
+      not_a_number: não é um número
+      not_an_integer: não é um número inteiro
+      odd: deve ser ímpar
+      other_than: deve ser diferente de %{count}
+      present: deve ficar em branco
+      required: é obrigatório(a)
+      taken: já está em uso
+      too_long:
+        one: 'é muito longo (máximo: %{count} caracter)'
+        other: 'é muito longo (máximo: %{count} caracteres)'
+      too_short:
+        one: 'é muito curto (mínimo: %{count} caracter)'
+        other: 'é muito curto (mínimo: %{count} caracteres)'
+      wrong_length:
+        one: não possui o tamanho esperado (%{count} caracter)
+        other: não possui o tamanho esperado (%{count} caracteres)
+    template:
+      body: 'Por favor, verifique o(s) seguinte(s) campo(s):'
+      header:
+        one: 'Não foi possível gravar %{model}: %{count} erro'
+        other: 'Não foi possível gravar %{model}: %{count} erros'
+      exclusion: não está disponível
+      greater_than: deve ser maior que %{count}
+      greater_than_or_equal_to: deve ser maior ou igual a %{count}
+      inclusion: não está incluído na lista
+      invalid: não é válido
+      less_than: deve ser menor que %{count}
+      less_than_or_equal_to: deve ser menor ou igual a %{count}
+      model_invalid: 'A validação falhou: %{errors}'
+      not_a_number: não é um número
+      not_an_integer: não é um número inteiro
+      odd: deve ser ímpar
+      other_than: deve ser diferente de %{count}
+      present: deve ficar em branco
+      required: é obrigatório(a)
+      taken: já está em uso
+      too_long:
+        one: 'é muito longo (máximo: 1 caracter)'
+        other: 'é muito longo (máximo: %{count} caracteres)'
+      too_short:
+        one: 'é muito curto (mínimo: 1 caracter)'
+        other: 'é muito curto (mínimo: %{count} caracteres)'
+      wrong_length:
+        one: não possui o tamanho esperado (1 caracter)
+        other: não possui o tamanho esperado (%{count} caracteres)
+  helpers:
+    submit:
+      create: "Criar %{model}"
+      update: "Atualizar %{model}"
+      submit: "Salvar %{model}"
+    page_entries_info:
+      more_pages:
+        display_entries: Exibindo %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de um total de <b>%{total}</b>
+      one_page:
+        display_entries:
+          one: Exibindo <b>1</b> %{entry_name}
+          other: Exibindo <b>%{count}</b> %{entry_name}
+          zero: Nenhum %{entry_name} encontrado
+  views:
+    pagination:
+      first: "&laquo; Primeiro"
+      last: "Último &raquo;"
+      next: Próximo &rsaquo;
+      previous: "&lsaquo; Anterior"
+      truncate: "&hellip;"
+    customers:
+      index:
+        title: "Lista de Clientes"
+      show:
+        title: "Detalhes do Cliente"
+      new:
+        title: "Novo Cliente"
+      edit:
+        title: "Editando o Cliente"
+      create:
+        success: "Cliente criado com sucesso."
+        failure: "Falha ao criar cliente."
+      update:
+        success: "Cliente atualizado com sucesso."
+        failure: "Falha ao atualizar cliente."
+      destroy:
+        success: "Cliente excluído com sucesso."
+        failure: "Falha ao excluir cliente."
+  activerecord:
+    models:
+      customer:
+        one: "Cliente"
+        other: "Clientes"
+      address:
+        one: "Endereço"
+        other: "Endereços"
+      phone:
+        one: "Telefone"
+        other: "Telefones"
+      product:
+        one: "Produto"
+        other: "Produtos"
+      sale:
+        one: "Venda"
+        other: "Vendas"
+    attributes:
+      customer:
+        name: "Nome"
+        document: "Documento (CPF/CNPJ)"
+        email: "E-mail"
+        birthdate: "Data de Nascimento"
+      address:
+        street: "Logradouro"
+        number: "Número"
+        district: "Bairro"
+        city: "Cidade"
+        state: "Estado"
+        zipcode: "CEP"
+      phone:
+        ddd: "DDD"
+        number: "Número"
+      product:
+        name: "Nome"
+        description: "Descrição"
+        price: "Preço"
+        image: "Imagem"
+      sale:
+        status: "Estado"

@@ -1,9 +1,10 @@
 class AddressesController < ApplicationController
+  before_action :authenticate_customer!
   before_action :set_address, only: %i[ show edit update destroy ]
 
   # GET /addresses or /addresses.json
   def index
-    @addresses = Address.all
+    @addresses = Address.where(customer_id: current_customer.id)
   end
 
   # GET /addresses/1 or /addresses/1.json
@@ -22,6 +23,7 @@ class AddressesController < ApplicationController
   # POST /addresses or /addresses.json
   def create
     @address = Address.new(address_params)
+    @address.customer = current_customer
 
     respond_to do |format|
       if @address.save

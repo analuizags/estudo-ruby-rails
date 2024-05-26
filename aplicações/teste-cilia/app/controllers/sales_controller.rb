@@ -1,9 +1,11 @@
 class SalesController < ApplicationController
-  before_action :set_sale, only: %i[ show edit update destroy ]
+  before_action :authenticate_customer!
+  before_action :set_sale, only: %i[ show edit update destroy cancel ]
+  before_action :check_status, only: [:edit, :update]
 
   # GET /sales or /sales.json
   def index
-    @sales = Sale.all
+    @sales = Sale.where(customer_id: current_customer.id)
   end
 
   # GET /sales/1 or /sales/1.json
@@ -13,17 +15,24 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
-    @sale.sale_products.build
+
+    Product.all.each do |product|
+      @sale.sale_products.build(product_id: product.id)
+    end
   end
 
   # GET /sales/1/edit
   def edit
-    @sale.sale_products.build if @sale.sale_products.empty?
+    Product.all.select { |product| !@sale.products.include?(product) }.each do |product|
+      @sale.sale_products.build(product_id: product.id)
+    end
   end
 
   # POST /sales or /sales.json
   def create
     @sale = Sale.new(sale_params)
+    @sale.customer = current_customer
+    @sale.status = "pending"
 
     respond_to do |format|
       if @sale.save
@@ -49,13 +58,37 @@ class SalesController < ApplicationController
     end
   end
 
-  # DELETE /sales/1 or /sales/1.json
-  def destroy
-    @sale.destroy
+  # def cancel
+  #   @sale.update_attributes({ status: 'canceled' })
+  #   respond_to do |format|
+  #     format.html { redirect_to sales_url, notice: "Sale was successfully canceled." }
+  #     format.json { render :show, status: :ok, location: @sale }
+  #   end
+  # end
 
-    respond_to do |format|
-      format.html { redirect_to sales_url, notice: "Sale was successfully destroyed." }
-      format.json { head :no_content }
+  # def complete
+  #   @sale.update_attributes({ status: 'completed' })
+  #   respond_to do |format|
+  #     format.html { redirect_to sales_url, notice: "Sale was successfully completed." }
+  #     format.json { render :show, status: :ok, location: @sale }
+  #   end
+  # end
+
+  def complete
+    begin
+      @sale.complete!
+      redirect_to sales_url, notice: 'Sale was successfully completed.'
+    rescue AASM::InvalidTransition
+      redirect_to sales_url, alert: 'Sale cannot be completed from its current state.'
+    end
+  end
+
+  def cancel
+    begin
+      @sale.cancel!
+      redirect_to sales_url, notice: 'Sale was successfully canceled.'
+    rescue AASM::InvalidTransition
+      redirect_to sales_url, alert: 'Sale cannot be canceled from its current state.'
     end
   end
 
@@ -69,5 +102,14 @@ class SalesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def sale_params
       params.require(:sale).permit(:customer_id, :status, sale_products_attributes: [:id, :product_id, :quantity, :_destroy])
+    end
+
+    def check_status
+      unless @sale.pending?
+        respond_to do |format|
+          format.html { redirect_to sales_url, alert: "Sale can only be edited if it is pending." }
+          format.json { redirect_to sales_url, status: :unprocessable_entity }
+        end
+      end
     end
 end

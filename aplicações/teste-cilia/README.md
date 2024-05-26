@@ -44,7 +44,7 @@ Para inicializar o aplicativo:
 
 Para criar o banco de dados, em outro terminal, execute:
 ```bash
-  $ docker compose run web rake db:create
+  $ docker compose run web rake db:create db:migrate
 ```
 <br/>
 

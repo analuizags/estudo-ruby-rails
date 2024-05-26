@@ -11,25 +11,28 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.collection_select :customer_id, Customer.all, :id, :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, options_for_select([['Pending', 'pending'], ['Completed', 'completed'], ['Canceled', 'canceled']], sale.status) %>
-  </div>
-
   <h3>Products</h3>
-  <div id="products">
-    <%= form.fields_for :sale_products do |sp_form| %>
-      <div class="nested-fields">
-        <%= render 'sale_product_fields', f: sp_form %>
+    <%= form.fields_for :sale_products, @sale.sale_products do |sale_product| %>
+    <div class="nested-fields" style="display: flex; gap: 20px;">
+        <%= sale_product.hidden_field :product_id %>
+
+        <div class="field">
+          <%= label_tag :product %>
+          <div><%= image_tag sale_product.object.product.image&.url, width: 150, height: 150 %></div>
+        </div>
+
+        <div class="field">
+          <%= label_tag :product %>
+          <div><%= sale_product.object.product.name %></div>
+        </div>
+
+        <div class="field">
+          <%= sale_product.label :quantity %>
+          <%= sale_product.number_field :quantity, min: 1 %>
+        </div>
       </div>
-    <% end %>
-  </div>
-  <%= link_to_add_association "Add Product", form, :sale_products %>
+      <% end %>
+    </div>
 
   <div class="actions">
     <%= form.submit %>

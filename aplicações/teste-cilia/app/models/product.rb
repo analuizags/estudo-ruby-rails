@@ -3,4 +3,6 @@ class Product < ApplicationRecord
   has_many :sales, through: :sale_products
 
   validates :name, :description, :price, :image, presence: true
+
+  mount_uploader :image, ImageUploader
 end

@@ -41,11 +41,6 @@
     <%= form.text_field :zipcode %>
   </div>
 
-  <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.collection_select :customer_id, Customer.all, :id, :name %>
-  </div>
-
   <div class="actions">
     <%= form.submit %>
   </div>

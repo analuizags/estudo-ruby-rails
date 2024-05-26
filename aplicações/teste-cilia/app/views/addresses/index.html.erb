@@ -25,7 +25,7 @@
         <td><%= address.city %></td>
         <td><%= address.state %></td>
         <td><%= address.zipcode %></td>
-        <td><%= address.customer %></td>
+        <td><%= address.customer.id %></td>
         <td><%= link_to 'Show', address %></td>
         <td><%= link_to 'Edit', edit_address_path(address) %></td>
         <td><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -36,4 +36,5 @@
 
 <br>
 
-<%= link_to 'New Address', new_address_path %>
+<%= link_to 'New Address', new_address_path %><br>
+<%= link_to 'Log out', destroy_customer_session_path, method: :delete %>

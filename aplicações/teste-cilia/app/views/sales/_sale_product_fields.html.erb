@@ -1,7 +1,7 @@
 <div class="nested-fields">
   <div class="field">
     <%= f.label :product_id %>
-    <%= f.collection_select :product_id, Product.all, :id, :name, include_blank: true %>
+    <%= f.number_field :product_id %>
   </div>
 
   <div class="field">
