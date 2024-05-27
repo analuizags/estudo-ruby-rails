@@ -1,10 +1,10 @@
 class ProductsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :set_product, only: %i[ show edit update activate deactivate ]
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    @products = Product.order(active: :desc, name: :asc)
   end
 
   # GET /products/1 or /products/1.json
@@ -48,13 +48,19 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1 or /products/1.json
-  def destroy
-    @product.destroy
-
+  def activate
+    @product.activate!
     respond_to do |format|
-      format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
-      format.json { head :no_content }
+      format.html { redirect_to products_path, notice: 'Product was successfully activated.' }
+      format.json { render :show, status: :ok, location: @product }
+    end
+  end
+
+  def deactivate
+    @product.deactivate!
+    respond_to do |format|
+      format.html { redirect_to products_path, notice: 'Product was successfully disabled.' }
+      format.json { render :show, status: :ok, location: @product }
     end
   end
 

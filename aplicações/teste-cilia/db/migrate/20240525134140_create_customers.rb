@@ -4,6 +4,7 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :document
       t.date :birthdate
+      t.boolean :active, default: true
 
       t.timestamps
     end

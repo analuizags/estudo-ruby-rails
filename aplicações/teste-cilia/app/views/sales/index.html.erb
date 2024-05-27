@@ -8,7 +8,7 @@
     <tr>
       <th>Customer</th>
       <th>Status</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -18,8 +18,9 @@
         <td><%= sale.customer.name %></td>
         <td><%= sale.status %></td>
         <td><%= link_to 'Show', sale %></td>
-        <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
+        <td><%= link_to 'Edit', edit_sale_path(sale) if customer_signed_in? %></td>
         <td><%= link_to 'Cancel', cancel_sale_path(sale) %></td>
+        <td><%= link_to 'Complete', complete_sale_path(sale) if admin_signed_in? %></td>
       </tr>
     <% end %>
   </tbody>
@@ -27,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Sale', new_sale_path %>
+<%= link_to 'New Sale', new_sale_path if customer_signed_in? %>

@@ -51,11 +51,14 @@ class PhonesController < ApplicationController
 
   # DELETE /phones/1 or /phones/1.json
   def destroy
-    @phone.destroy
-
     respond_to do |format|
-      format.html { redirect_to phones_url, notice: "Phone was successfully destroyed." }
-      format.json { head :no_content }
+      if @phone.destroy
+        format.html { redirect_to phones_url, notice: "Phone was successfully destroyed." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to phones_url, alert: @phone.errors.full_messages.first }
+        format.json { head :unprocessable_entity }
+      end
     end
   end
 

@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2024_05_25_213126) do
     t.string "name"
     t.string "document"
     t.date "birthdate"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
@@ -67,8 +68,9 @@ ActiveRecord::Schema.define(version: 2024_05_25_213126) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "price"
+    t.decimal "price"
     t.string "image"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -85,7 +87,7 @@ ActiveRecord::Schema.define(version: 2024_05_25_213126) do
 
   create_table "sales", force: :cascade do |t|
     t.bigint "customer_id"
-    t.string "status"
+    t.string "status", default: "pending"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_sales_on_customer_id"

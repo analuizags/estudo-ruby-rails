@@ -2,13 +2,37 @@
 
 <p>
   <strong>Customer:</strong>
-  <%= @sale.customer %>
+  #<%= @sale.customer.id %> - <%= @sale.customer.name %>
 </p>
 
 <p>
   <strong>Status:</strong>
   <%= @sale.status %>
 </p>
+
+<h2>Produtos</h2>
+<% @sale.sale_products.each do |sale_product| %>
+  <p>
+    <strong>Nome:</strong>
+    <%= sale_product.product.name %>
+  </p>
+
+  <p>
+    <strong>Quantidade:</strong>
+    <%= sale_product.quantity %>
+  </p>
+
+  <p>
+    <strong>Preço Unitário:</strong>
+    R$<%= sale_product.product.price %>
+  </p>
+
+  <p>
+    <strong>Preço Total:</strong>
+    <% total = sale_product.product.price * sale_product.quantity %>
+    R$<%= total %>
+  </p><br>
+<% end %>
 
 <%= link_to 'Edit', edit_sale_path(@sale) %> |
 <%= link_to 'Back', sales_path %>

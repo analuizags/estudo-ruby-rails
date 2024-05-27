@@ -7,16 +7,27 @@ class Customer < ApplicationRecord
   has_many :addresses, inverse_of: :customer, dependent: :destroy
   has_many :phones, inverse_of: :customer, dependent: :destroy
 
-  accepts_nested_attributes_for :addresses, allow_destroy: true
-  accepts_nested_attributes_for :phones, allow_destroy: true
+  accepts_nested_attributes_for :addresses
+  accepts_nested_attributes_for :phones
 
   validates :name, :document, :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: "must be a valid email address" }
 
   validate :valid_document
 
-  validates_associated :addresses
-  validates_associated :phones
+  def activate!
+    update!(active: true)
+  end
+
+  def deactivate!
+    ActiveRecord::Base.transaction do
+      update!(active: false)
+      sales&.each(&:cancel!)
+    end
+  rescue => e
+    errors.add(:base, "Failed to deactivate customer or cancel sales: #{e.message}")
+    false
+  end
 
   private
 

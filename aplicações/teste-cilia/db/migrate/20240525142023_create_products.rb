@@ -3,8 +3,9 @@ class CreateProducts < ActiveRecord::Migration[5.2]
     create_table :products do |t|
       t.string :name
       t.text :description
-      t.integer :price
+      t.decimal :price
       t.string :image
+      t.boolean :active, default: true
 
       t.timestamps
     end

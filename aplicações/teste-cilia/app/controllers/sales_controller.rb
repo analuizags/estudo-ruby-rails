@@ -1,11 +1,16 @@
 class SalesController < ApplicationController
-  before_action :authenticate_customer!
-  before_action :set_sale, only: %i[ show edit update destroy cancel ]
+  before_action :check_authenticate, except: [:new, :edit]
+  before_action :authenticate_customer!, only: [:new, :edit]
+  before_action :set_sale, only: [:show, :edit, :update, :destroy, :cancel, :complete]
   before_action :check_status, only: [:edit, :update]
 
   # GET /sales or /sales.json
   def index
-    @sales = Sale.where(customer_id: current_customer.id)
+    if admin_signed_in?
+      @sales = Sale.all
+    else
+      @sales = Sale.where(customer_id: current_customer.id)
+    end
   end
 
   # GET /sales/1 or /sales/1.json
@@ -57,22 +62,6 @@ class SalesController < ApplicationController
       end
     end
   end
-
-  # def cancel
-  #   @sale.update_attributes({ status: 'canceled' })
-  #   respond_to do |format|
-  #     format.html { redirect_to sales_url, notice: "Sale was successfully canceled." }
-  #     format.json { render :show, status: :ok, location: @sale }
-  #   end
-  # end
-
-  # def complete
-  #   @sale.update_attributes({ status: 'completed' })
-  #   respond_to do |format|
-  #     format.html { redirect_to sales_url, notice: "Sale was successfully completed." }
-  #     format.json { render :show, status: :ok, location: @sale }
-  #   end
-  # end
 
   def complete
     begin

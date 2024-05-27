@@ -51,11 +51,14 @@ class AddressesController < ApplicationController
 
   # DELETE /addresses/1 or /addresses/1.json
   def destroy
-    @address.destroy
-
     respond_to do |format|
-      format.html { redirect_to addresses_url, notice: "Address was successfully destroyed." }
-      format.json { head :no_content }
+      if @address.destroy
+        format.html { redirect_to addresses_url, notice: "Address was successfully destroyed." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to addresses_url, alert: @address.errors.full_messages.first }
+        format.json { head :unprocessable_entity }
+      end
     end
   end
 

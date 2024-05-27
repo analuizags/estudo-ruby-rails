@@ -44,8 +44,14 @@ class AddDeviseToCustomers < ActiveRecord::Migration[5.2]
   end
 
   def self.down
-    # By default, we don't want to make any assumption about how to roll back a migration when your
-    # model already existed. Please edit below which fields you would like to remove in this migration.
-    raise ActiveRecord::IrreversibleMigration
+    remove_index :customers, :email
+    remove_index :customers, :reset_password_token
+    # remove_index :customers, :confirmation_token
+    # remove_index :customers, :unlock_token
+
+    change_table :customers do |t|
+      t.remove :email, :encrypted_password, :reset_password_token,
+               :reset_password_sent_at, :remember_created_at
+    end
   end
 end
