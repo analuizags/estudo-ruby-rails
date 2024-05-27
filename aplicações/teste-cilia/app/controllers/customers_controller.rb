@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
 
   # GET /customers or /customers.json
   def index
-    @customers = Customer.order(active: :desc, name: :asc)
+    @customers = filter_customers.order(active: :desc, name: :asc)
   end
 
   # GET /customers/1 or /customers/1.json
@@ -62,5 +62,14 @@ class CustomersController < ApplicationController
         :birthdate,
         addresses_attributes: [:id, :street, :number, :district, :city, :state, :zipcode],
         phones_attributes: [:id, :ddd, :number])
+    end
+
+    def filter_customers
+      finder = CustomersFinder.new(
+        params: params.permit(:name, :email, :active).to_hash,
+        init_collection: Customer.all
+      )
+
+      finder.execute
     end
 end

@@ -3,11 +3,37 @@
 
 <h1>Sales</h1>
 
+<% if admin_signed_in? %>
+  <%= form_tag sales_path, method: :get do %>
+    <div  style="display: flex; gap: 15px; align-items: flex-end;">
+      <div>
+        <%= label_tag :customer_id, 'Customer'%>
+        <%= select_tag :customer_id, options_for_select(@customers.map { |p| [p.name, p.id] }, params[:customer_id]), include_blank: true %>
+      </div>
+
+      <div>
+        <%= label_tag :status, 'Status' %>
+        <%= select_tag :status, options_for_select([['', ''], ['Pending', 'pending'],
+            ['Completed', 'completed'], ['Canceled', 'canceled']], params[:status]) %>
+      </div>
+
+      <div>
+        <%= submit_tag "Search" %>
+      </div>
+
+      <%= link_to "Reset", sales_path %>
+    </div>
+  <% end %><br><br>
+<% end %>
+
 <table>
   <thead>
     <tr>
+      <th>#</th>
       <th>Customer</th>
       <th>Status</th>
+      <th>Products</th>
+      <th>Total</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -15,8 +41,15 @@
   <tbody>
     <% @sales.each do |sale| %>
       <tr>
+        <td><%= sale.id %></td>
         <td><%= sale.customer.name %></td>
         <td><%= sale.status %></td>
+        <td>
+          <% sale.sale_products.each do |sp| %>
+            <%= sp.product.name %><br>
+          <% end %>
+        </td>
+        <td><%= number_to_currency(sale.total_price) %></td>
         <td><%= link_to 'Show', sale %></td>
         <td><%= link_to 'Edit', edit_sale_path(sale) if customer_signed_in? %></td>
         <td><%= link_to 'Cancel', cancel_sale_path(sale) %></td>

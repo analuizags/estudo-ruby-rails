@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.order(active: :desc, name: :asc)
+    @products = filter_products.order(active: :desc, name: :asc)
   end
 
   # GET /products/1 or /products/1.json
@@ -73,5 +73,14 @@ class ProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def product_params
       params.require(:product).permit(:name, :description, :price, :image)
+    end
+
+    def filter_products
+      finder = ProductsFinder.new(
+        params: params.permit(:name, :active).to_hash,
+        init_collection: Product.all
+      )
+
+      finder.execute
     end
 end

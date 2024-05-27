@@ -10,6 +10,11 @@
   <%= @sale.status %>
 </p>
 
+<p>
+  <strong>Preço Total:</strong>
+  <%= number_to_currency(@sale.total_price) %>
+</p>
+
 <h2>Produtos</h2>
 <% @sale.sale_products.each do |sale_product| %>
   <p>
@@ -24,13 +29,7 @@
 
   <p>
     <strong>Preço Unitário:</strong>
-    R$<%= sale_product.product.price %>
-  </p>
-
-  <p>
-    <strong>Preço Total:</strong>
-    <% total = sale_product.product.price * sale_product.quantity %>
-    R$<%= total %>
+    <%= number_to_currency(sale_product.product.price) %>
   </p><br>
 <% end %>
 

@@ -23,7 +23,11 @@
 
         <div class="field">
           <%= label_tag :product %>
-          <div><%= sale_product.object.product.name %></div>
+          <div>
+            <%= sale_product.object.product.name %><br>
+            <%= sale_product.object.product.description %><br><br>
+            <%= number_to_currency(sale_product.object.product.price) %>
+          </div>
         </div>
 
         <div class="field">

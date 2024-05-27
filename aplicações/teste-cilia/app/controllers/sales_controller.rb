@@ -7,7 +7,8 @@ class SalesController < ApplicationController
   # GET /sales or /sales.json
   def index
     if admin_signed_in?
-      @sales = Sale.all
+      @sales = filter_sales
+      @customers = Customer.active
     else
       @sales = Sale.where(customer_id: current_customer.id)
     end
@@ -100,5 +101,14 @@ class SalesController < ApplicationController
           format.json { redirect_to sales_url, status: :unprocessable_entity }
         end
       end
+    end
+
+    def filter_sales
+      finder = SalesFinder.new(
+        params: params.permit(:customer_id, :status).to_hash,
+        init_collection: Sale.all
+      )
+
+      finder.execute
     end
 end

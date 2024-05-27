@@ -15,6 +15,8 @@ class Customer < ApplicationRecord
 
   validate :valid_document
 
+  scope :active, -> { where(active: true) }
+
   def activate!
     update!(active: true)
   end

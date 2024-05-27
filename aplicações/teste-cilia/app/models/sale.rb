@@ -22,4 +22,8 @@ class Sale < ApplicationRecord
       transitions from: :pending, to: :canceled
     end
   end
+
+  def total_price
+    sale_products.joins(:product).sum('products.price * sale_products.quantity')
+  end
 end
