@@ -8,7 +8,11 @@ Rails.application.routes.draw do
     delete 'customers/cancel', to: 'devise/registrations#cancel', as: nil
   end
 
-  devise_for :admins, :skip => [:registrations]
+  devise_for :admins, skip: [:registrations]
+  as :admin do
+    get 'admins/edit' => 'devise/registrations#edit', as: 'edit_admin_registration'
+    put 'admins' => 'devise/registrations#update', as: 'admin_registration'
+  end
   devise_scope :admin do
     delete 'admins/cancel', to: 'devise/registrations#cancel', as: nil
   end
