@@ -57,10 +57,14 @@ class ProductsController < ApplicationController
   end
 
   def deactivate
-    @product.deactivate!
     respond_to do |format|
-      format.html { redirect_to products_path, notice: 'Product was successfully disabled.' }
-      format.json { render :show, status: :ok, location: @product }
+      if @product.deactivate!
+        format.html { redirect_to products_path, notice: 'Product was successfully disabled.' }
+        format.json { render :show, status: :ok, location: @product }
+      else
+        format.html { redirect_to products_path, alert: @product.errors.full_messages.join('. ') }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
     end
   end
 

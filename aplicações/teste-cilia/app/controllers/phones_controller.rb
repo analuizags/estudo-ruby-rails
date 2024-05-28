@@ -56,7 +56,7 @@ class PhonesController < ApplicationController
         format.html { redirect_to phones_url, notice: "Phone was successfully destroyed." }
         format.json { head :no_content }
       else
-        format.html { redirect_to phones_url, alert: @phone.errors.full_messages.first }
+        format.html { redirect_to phones_url, alert: @phone.errors.full_messages.join('. ') }
         format.json { head :unprocessable_entity }
       end
     end

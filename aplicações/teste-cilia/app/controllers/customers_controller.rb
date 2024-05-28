@@ -1,7 +1,6 @@
 class CustomersController < ApplicationController
-  before_action :authenticate_customer!, except: [:index, :show, :activate]
+  before_action :authenticate_customer!, except: [:index, :activate]
   before_action :authenticate_admin!, only: [:index, :activate]
-  before_action :check_authenticate, only: [:show, :deactivate]
   before_action :set_customer, only: %i[ show edit update activate deactivate ]
 
   # GET /customers or /customers.json
@@ -41,10 +40,14 @@ class CustomersController < ApplicationController
   end
 
   def deactivate
-    @customer.deactivate!
     respond_to do |format|
-      format.html { redirect_to customers_path, notice: 'Customer was successfully disabled.' }
-      format.json { render :show, status: :ok, location: @customer }
+      if @customer.deactivate!
+        format.html { redirect_to customers_path, notice: 'Customer was successfully disabled.' }
+        format.json { render :show, status: :ok, location: @customer }
+      else
+        format.html { redirect_to customers_path, alert: @customer.errors.full_messages.join('. ') }
+        format.json { render json: @customer.errors, status: :unprocessable_entity }
+      end
     end
   end
 

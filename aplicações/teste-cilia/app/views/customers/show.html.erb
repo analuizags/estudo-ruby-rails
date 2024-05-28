@@ -22,6 +22,11 @@
   <%= @customer.birthdate %>
 </p>
 
+<p>
+  <strong>Active:</strong>
+  <%= @customer.active %>
+</p>
+
 <h2>Endereços</h2>
 <% @customer.addresses.each do |address| %>
   <p>

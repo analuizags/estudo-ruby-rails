@@ -4,7 +4,7 @@
 <h1>Sales</h1>
 
 <% if admin_signed_in? %>
-  <%= form_tag sales_path, method: :get do %>
+  <%= form_tag index_admin_sales_path, method: :get do %>
     <div  style="display: flex; gap: 15px; align-items: flex-end;">
       <div>
         <%= label_tag :customer_id, 'Customer'%>
@@ -21,7 +21,7 @@
         <%= submit_tag "Search" %>
       </div>
 
-      <%= link_to "Reset", sales_path %>
+      <%= link_to "Reset", index_admin_sales_path %>
     </div>
   <% end %><br><br>
 <% end %>
@@ -50,9 +50,21 @@
           <% end %>
         </td>
         <td><%= number_to_currency(sale.total_price) %></td>
-        <td><%= link_to 'Show', sale %></td>
+        <td>
+          <% if admin_signed_in? %>
+            <%= link_to 'Show', show_admin_sale_path(sale) %>
+          <% else %>
+            <%= link_to 'Show', sale %>
+          <% end %>
+        </td>
         <td><%= link_to 'Edit', edit_sale_path(sale) if customer_signed_in? %></td>
-        <td><%= link_to 'Cancel', cancel_sale_path(sale) %></td>
+        <td>
+          <% if admin_signed_in? %>
+            <%= link_to 'Cancel', cancel_admin_sale_path(sale) %>
+          <% else %>
+            <%= link_to 'Cancel', cancel_sale_path(sale) %>
+          <% end %>
+        </td>
         <td><%= link_to 'Complete', complete_sale_path(sale) if admin_signed_in? %></td>
       </tr>
     <% end %>

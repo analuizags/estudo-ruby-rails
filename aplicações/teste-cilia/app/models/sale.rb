@@ -7,7 +7,9 @@ class Sale < ApplicationRecord
 
   accepts_nested_attributes_for :sale_products, allow_destroy: true, reject_if: proc { |attr| attr['quantity'].to_i.zero? }
 
-  validates :status, presence: true, inclusion: { in: %w[pending completed canceled], message: "%{value} is not a valid status" }
+  validates :status, presence: true, inclusion: { in: %w[pending completed canceled], message: "%{value} não é um estado válido" }
+
+  scope :pending, -> { where(status: 'pending') }
 
   aasm column: 'status' do
     state :pending, initial: true

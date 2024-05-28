@@ -1,21 +1,28 @@
 class SalesController < ApplicationController
-  before_action :check_authenticate, except: [:new, :edit]
-  before_action :authenticate_customer!, only: [:new, :edit]
-  before_action :set_sale, only: [:show, :edit, :update, :destroy, :cancel, :complete]
+  # before_action :authenticate_admin!, except: [:new, :edit]
+  before_action :authenticate_admin!, only: [:index_admin, :show_admin, :cancel_admin, :complete]
+  before_action :authenticate_customer!, except: [:index_admin, :show_admin, :cancel_admin, :complete]
+  before_action :set_sale, only: [:show, :edit, :update, :cancel, :complete, :show_admin, :cancel_admin]
   before_action :check_status, only: [:edit, :update]
 
   # GET /sales or /sales.json
   def index
-    if admin_signed_in?
-      @sales = filter_sales
-      @customers = Customer.active
-    else
-      @sales = Sale.where(customer_id: current_customer.id)
-    end
+    @sales = Sale.where(customer_id: current_customer.id)
+  end
+  
+  def index_admin
+    @sales = filter_sales
+    @customers = Customer.all
+
+    render :index
   end
 
   # GET /sales/1 or /sales/1.json
   def show
+  end
+
+  def show_admin
+    render :show
   end
 
   # GET /sales/new
@@ -67,9 +74,9 @@ class SalesController < ApplicationController
   def complete
     begin
       @sale.complete!
-      redirect_to sales_url, notice: 'Sale was successfully completed.'
+      redirect_to index_admin_sales_path, notice: 'Sale was successfully completed.'
     rescue AASM::InvalidTransition
-      redirect_to sales_url, alert: 'Sale cannot be completed from its current state.'
+      redirect_to index_admin_sales_path, alert: 'Sale cannot be completed from its current state.'
     end
   end
 
@@ -79,6 +86,15 @@ class SalesController < ApplicationController
       redirect_to sales_url, notice: 'Sale was successfully canceled.'
     rescue AASM::InvalidTransition
       redirect_to sales_url, alert: 'Sale cannot be canceled from its current state.'
+    end
+  end
+
+  def cancel_admin
+    begin
+      @sale.cancel!
+      redirect_to index_admin_sales_path, notice: 'Sale was successfully canceled.'
+    rescue AASM::InvalidTransition
+      redirect_to index_admin_sales_path, alert: 'Sale cannot be canceled from its current state.'
     end
   end
 

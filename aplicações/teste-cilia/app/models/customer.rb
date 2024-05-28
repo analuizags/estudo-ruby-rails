@@ -11,11 +11,11 @@ class Customer < ApplicationRecord
   accepts_nested_attributes_for :phones
 
   validates :name, :document, :email, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: "must be a valid email address" }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: "precisa ser um email válido" }
 
   validate :valid_document
 
-  scope :active, -> { where(active: true) }
+  scope :actives, -> { where(active: true) }
 
   def activate!
     update!(active: true)
@@ -24,7 +24,7 @@ class Customer < ApplicationRecord
   def deactivate!
     ActiveRecord::Base.transaction do
       update!(active: false)
-      sales&.each(&:cancel!)
+      sales&.pending&.each(&:cancel!)
     end
   rescue => e
     errors.add(:base, "Failed to deactivate customer or cancel sales: #{e.message}")
@@ -35,7 +35,7 @@ class Customer < ApplicationRecord
 
   def valid_document
     unless CPF.valid?(document) || CNPJ.valid?(document)
-      errors.add(:document, "must be a valid CPF or CNPJ")
+      errors.add(:document, "precisa ser um CPF ou CNPJ válido")
     end
   end
 end
