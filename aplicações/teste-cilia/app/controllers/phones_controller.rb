@@ -27,7 +27,7 @@ class PhonesController < ApplicationController
 
     respond_to do |format|
       if @phone.save
-        format.html { redirect_to phone_url(@phone), notice: "Phone was successfully created." }
+        format.html { redirect_to phone_url(@phone), notice: "O telefone foi criado com sucesso." }
         format.json { render :show, status: :created, location: @phone }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class PhonesController < ApplicationController
   def update
     respond_to do |format|
       if @phone.update(phone_params)
-        format.html { redirect_to phone_url(@phone), notice: "Phone was successfully updated." }
+        format.html { redirect_to phone_url(@phone), notice: "O telefone foi atualizado com sucesso." }
         format.json { render :show, status: :ok, location: @phone }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,10 +53,10 @@ class PhonesController < ApplicationController
   def destroy
     respond_to do |format|
       if @phone.destroy
-        format.html { redirect_to phones_url, notice: "Phone was successfully destroyed." }
+        format.html { redirect_to phones_url, notice: "O telefone foi excluído com sucesso." }
         format.json { head :no_content }
       else
-        format.html { redirect_to phones_url, alert: @phone.errors.full_messages.join('. ') }
+        format.html { redirect_to phones_url, alert: @phone.errors.full_messages.join(". ") }
         format.json { head :unprocessable_entity }
       end
     end

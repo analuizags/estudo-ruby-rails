@@ -27,7 +27,7 @@ class Customer < ApplicationRecord
       sales&.pending&.each(&:cancel!)
     end
   rescue => e
-    errors.add(:base, "Failed to deactivate customer or cancel sales: #{e.message}")
+    errors.add(:base, "Falha ao desativar cliente ou cancelar vendas: #{e.message}")
     false
   end
 

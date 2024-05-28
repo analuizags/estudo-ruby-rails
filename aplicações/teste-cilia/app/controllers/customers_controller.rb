@@ -22,7 +22,7 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
-        format.html { redirect_to customer_url(@customer), notice: "Customer was successfully updated." }
+        format.html { redirect_to customer_url(@customer), notice: "O cliente foi atualizado com sucesso." }
         format.json { render :show, status: :ok, location: @customer }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -34,7 +34,7 @@ class CustomersController < ApplicationController
   def activate
     @customer.activate!
     respond_to do |format|
-      format.html { redirect_to customers_path, notice: 'Customer was successfully activated.' }
+      format.html { redirect_to customers_path, notice: "O cliente foi ativado com sucesso." }
       format.json { render :show, status: :ok, location: @customer }
     end
   end
@@ -42,10 +42,10 @@ class CustomersController < ApplicationController
   def deactivate
     respond_to do |format|
       if @customer.deactivate!
-        format.html { redirect_to customers_path, notice: 'Customer was successfully disabled.' }
+        format.html { redirect_to customers_path, notice: "O cliente foi desativado com sucesso." }
         format.json { render :show, status: :ok, location: @customer }
       else
-        format.html { redirect_to customers_path, alert: @customer.errors.full_messages.join('. ') }
+        format.html { redirect_to customers_path, alert: @customer.errors.full_messages.join(". ") }
         format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
     end

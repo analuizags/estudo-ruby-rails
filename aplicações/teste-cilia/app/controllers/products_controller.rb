@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
+        format.html { redirect_to product_url(@product), notice: "O produto foi criado com sucesso." }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
+        format.html { redirect_to product_url(@product), notice: "O produto foi atualizado com sucesso." }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
   def activate
     @product.activate!
     respond_to do |format|
-      format.html { redirect_to products_path, notice: 'Product was successfully activated.' }
+      format.html { redirect_to products_path, notice: "O produto foi ativado com sucesso." }
       format.json { render :show, status: :ok, location: @product }
     end
   end
@@ -59,10 +59,10 @@ class ProductsController < ApplicationController
   def deactivate
     respond_to do |format|
       if @product.deactivate!
-        format.html { redirect_to products_path, notice: 'Product was successfully disabled.' }
+        format.html { redirect_to products_path, notice: "O produto foi desativado com sucesso." }
         format.json { render :show, status: :ok, location: @product }
       else
-        format.html { redirect_to products_path, alert: @product.errors.full_messages.join('. ') }
+        format.html { redirect_to products_path, alert: @product.errors.full_messages.join(". ") }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end

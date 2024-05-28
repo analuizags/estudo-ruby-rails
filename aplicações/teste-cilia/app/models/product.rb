@@ -17,7 +17,7 @@ class Product < ApplicationRecord
       sale_products&.destroy_all
     end
   rescue => e
-    errors.add(:base, "Failed to deactivate product or cancel sales product: #{e.message}")
+    errors.add(:base, "Falha ao desativar o produto ou cancelar a venda do produto: #{e.message}")
     false
   end
 end

@@ -1,39 +1,34 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Street:</strong>
+  <strong>Logradouro:</strong>
   <%= @address.street %>
 </p>
 
 <p>
-  <strong>Number:</strong>
+  <strong>Número:</strong>
   <%= @address.number %>
 </p>
 
 <p>
-  <strong>District:</strong>
+  <strong>Bairro:</strong>
   <%= @address.district %>
 </p>
 
 <p>
-  <strong>City:</strong>
+  <strong>Cidade:</strong>
   <%= @address.city %>
 </p>
 
 <p>
-  <strong>State:</strong>
+  <strong>Estado:</strong>
   <%= @address.state %>
 </p>
 
 <p>
-  <strong>Zipcode:</strong>
+  <strong>CEP:</strong>
   <%= @address.zipcode %>
 </p>
 
-<p>
-  <strong>Customer:</strong>
-  <%= @address.customer.id %>
-</p>
-
-<%= link_to 'Edit', edit_address_path(@address) %> |
-<%= link_to 'Back', addresses_path %>
+<%= link_to 'Editar', edit_address_path(@address) %> |
+<%= link_to 'Voltar', addresses_path %>

@@ -1,5 +1,4 @@
 class SalesController < ApplicationController
-  # before_action :authenticate_admin!, except: [:new, :edit]
   before_action :authenticate_admin!, only: [:index_admin, :show_admin, :cancel_admin, :complete]
   before_action :authenticate_customer!, except: [:index_admin, :show_admin, :cancel_admin, :complete]
   before_action :set_sale, only: [:show, :edit, :update, :cancel, :complete, :show_admin, :cancel_admin]
@@ -49,7 +48,7 @@ class SalesController < ApplicationController
 
     respond_to do |format|
       if @sale.save
-        format.html { redirect_to sale_url(@sale), notice: "Sale was successfully created." }
+        format.html { redirect_to sale_url(@sale), notice: "A venda foi criada com sucesso." }
         format.json { render :show, status: :created, location: @sale }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -62,7 +61,7 @@ class SalesController < ApplicationController
   def update
     respond_to do |format|
       if @sale.update(sale_params)
-        format.html { redirect_to sale_url(@sale), notice: "Sale was successfully updated." }
+        format.html { redirect_to sale_url(@sale), notice: "A venda foi atualizada com sucesso." }
         format.json { render :show, status: :ok, location: @sale }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,27 +73,27 @@ class SalesController < ApplicationController
   def complete
     begin
       @sale.complete!
-      redirect_to index_admin_sales_path, notice: 'Sale was successfully completed.'
+      redirect_to index_admin_sales_path, notice: "A venda foi concluída com sucesso."
     rescue AASM::InvalidTransition
-      redirect_to index_admin_sales_path, alert: 'Sale cannot be completed from its current state.'
+      redirect_to index_admin_sales_path, alert: "A venda não pode ser concluída a partir do seu estado atual."
     end
   end
 
   def cancel
     begin
       @sale.cancel!
-      redirect_to sales_url, notice: 'Sale was successfully canceled.'
+      redirect_to sales_url, notice: "A venda foi cancelada com sucesso."
     rescue AASM::InvalidTransition
-      redirect_to sales_url, alert: 'Sale cannot be canceled from its current state.'
+      redirect_to sales_url, alert: "A venda não pode ser cancelada em seu estado atual."
     end
   end
 
   def cancel_admin
     begin
       @sale.cancel!
-      redirect_to index_admin_sales_path, notice: 'Sale was successfully canceled.'
+      redirect_to index_admin_sales_path, notice: "A venda foi cancelada com sucesso."
     rescue AASM::InvalidTransition
-      redirect_to index_admin_sales_path, alert: 'Sale cannot be canceled from its current state.'
+      redirect_to index_admin_sales_path, alert: "A venda não pode ser cancelada em seu estado atual."
     end
   end
 
@@ -113,7 +112,7 @@ class SalesController < ApplicationController
     def check_status
       unless @sale.pending?
         respond_to do |format|
-          format.html { redirect_to sales_url, alert: "Sale can only be edited if it is pending." }
+          format.html { redirect_to sales_url, alert: "A venda só poderá ser editada se estiver pendente." }
           format.json { redirect_to sales_url, status: :unprocessable_entity }
         end
       end

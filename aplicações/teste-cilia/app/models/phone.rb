@@ -1,8 +1,8 @@
 class Phone < ApplicationRecord
   belongs_to :customer, inverse_of: :phones
 
-  validates :ddd, presence: true, format: { with: /\A\d{2}\z/, message: "must have 2 digits" }
-  validates :number, presence: true, format: { with: /\A\d{8,9}\z/, message: "must have 8 to 9 digits" }
+  validates :ddd, presence: true, format: { with: /\A\d{2}\z/, message: "deve ter 2 dígitos" }
+  validates :number, presence: true, format: { with: /\A\d{8,9}\z/, message: "deve ter de 8 a 9 dígitos" }
 
   before_destroy :validate_customer_has_more_than_one_phone
 
