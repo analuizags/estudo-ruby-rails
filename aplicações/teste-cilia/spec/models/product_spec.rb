@@ -33,9 +33,9 @@ RSpec.describe Product, type: :model do
     end
 
     it 'adds errors if deactivation fails' do
-      allow(active_product).to receive(:update!).and_raise('Something went wrong')
+      allow(active_product).to receive(:update!).and_raise('Algo deu errado')
       active_product.deactivate!
-      expect(active_product.errors[:base]).to include('Failed to deactivate product or cancel sales product: Something went wrong')
+      expect(active_product.errors[:base]).to include('Falha ao desativar o produto ou cancelar a venda do produto: Algo deu errado')
     end
   end
 end

@@ -16,7 +16,7 @@ RSpec.describe Address, type: :model do
     it 'validates the format of zipcode' do
       address.zipcode = '1234567'
       expect(address).not_to be_valid
-      expect(address.errors[:zipcode]).to include('must have 8 digits')
+      expect(address.errors[:zipcode]).to include('deve ter 8 dígitos')
 
       address.zipcode = '12345678'
       expect(address).to be_valid

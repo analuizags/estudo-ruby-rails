@@ -21,6 +21,12 @@ O comando anterior gerou alguns dados básicos, incluindo um usuário admin, res
 
 Pronto! Basta acessar o [localhost](http://localhost:3001/) na porta 3001 e navegar pelo sistema.
 
+Para rodar os testes unitários basta entrar no container web:
+```
+$ docker exec -it teste-cilia-web-1 bash
+$ bundle exec rspec
+```
+
 ### Permissões
 
 |          | Venda                                                   | Produto | Cliente                                    | Endereço | Telefone |

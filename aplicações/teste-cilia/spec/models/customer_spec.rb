@@ -56,10 +56,10 @@ RSpec.describe Customer, type: :model do
     end
 
     it 'adds errors if deactivation fails' do
-      allow(active_customer).to receive(:update!).and_raise('Something went wrong')
+      allow(active_customer).to receive(:update!).and_raise('Algo deu errado')
 
       active_customer.deactivate!
-      expect(active_customer.errors[:base]).to include('Failed to deactivate customer or cancel sales: Something went wrong')
+      expect(active_customer.errors[:base]).to include('Falha ao desativar cliente ou cancelar vendas: Algo deu errado')
     end
   end
 end
