@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  #<%= @sale.customer.id %> - <%= @sale.customer.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @sale.status %>
+</p>
+
+<p>
+  <strong>Preço Total:</strong>
+  <%= number_to_currency(@sale.total_price) %>
+</p>
+
+<h2>Produtos</h2>
+<% @sale.sale_products.each do |sale_product| %>
+  <p>
+    <strong>Nome:</strong>
+    <%= sale_product.product.name %>
+  </p>
+
+  <p>
+    <strong>Quantidade:</strong>
+    <%= sale_product.quantity %>
+  </p>
+
+  <p>
+    <strong>Preço Unitário:</strong>
+    <%= number_to_currency(sale_product.product.price) %>
+  </p><br>
+<% end %>
+
+<%= link_to 'Edit', edit_sale_path(@sale) %> |
+<%= link_to 'Back', sales_path %>

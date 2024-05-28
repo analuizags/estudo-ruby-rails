@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= t('views.customers.show.title') %></h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @customer.name %>
+</p>
+
+<p>
+  <strong>Document:</strong>
+  <%= @customer.document %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @customer.email %>
+</p>
+
+<p>
+  <strong>Birthdate:</strong>
+  <%= @customer.birthdate %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @customer.active %>
+</p>
+
+<h2>Endereços</h2>
+<% @customer.addresses.each do |address| %>
+  <p>
+    <strong>Street:</strong>
+    <%= address.street %>
+  </p>
+
+  <p>
+    <strong>Number:</strong>
+    <%= address.number %>
+  </p>
+
+  <p>
+    <strong>District:</strong>
+    <%= address.district %>
+  </p>
+
+  <p>
+    <strong>City:</strong>
+    <%= address.city %>
+  </p>
+
+  <p>
+    <strong>State:</strong>
+    <%= address.state %>
+  </p>
+
+  <p>
+    <strong>Zipcode:</strong>
+    <%= address.zipcode %>
+  </p>
+
+  <p>
+    <strong>Customer:</strong>
+    <%= address.customer.id %>
+  </p>
+<% end %>
+
+
+<h2>Telefones</h2>
+<% @customer.phones.each do |phone| %>
+  <p>
+    <strong>Ddd:</strong>
+    <%= phone.ddd %>
+  </p>
+
+  <p>
+    <strong>Number:</strong>
+    <%= phone.number %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Back', root_path %>

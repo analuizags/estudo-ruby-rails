@@ -1,0 +1,44 @@
+<%= form_with(model: sale, local: true) do |form| %>
+  <% if sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+      <ul>
+      <% sale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h3>Products</h3>
+    <%= form.fields_for :sale_products, @sale.sale_products do |sale_product| %>
+    <div class="nested-fields" style="display: flex; gap: 20px;">
+        <%= sale_product.hidden_field :product_id %>
+
+        <div class="field">
+          <%= label_tag :product %>
+          <div><%= image_tag sale_product.object.product.image&.url, width: 150, height: 150 %></div>
+        </div>
+
+        <div class="field">
+          <%= label_tag :product %>
+          <div>
+            <%= sale_product.object.product.name %><br>
+            <%= sale_product.object.product.description %><br><br>
+            <%= number_to_currency(sale_product.object.product.price) %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= sale_product.label :quantity %>
+          <%= sale_product.number_field :quantity, min: 1 %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

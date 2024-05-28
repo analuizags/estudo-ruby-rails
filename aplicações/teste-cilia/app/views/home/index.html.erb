@@ -1,0 +1,23 @@
+<% if !customer_signed_in? && !admin_signed_in?%>
+  <%= link_to "Cliente Sign In", new_customer_session_path %><br><br>
+  <%= link_to "Cliente Sign Up", new_customer_registration_path %><br><br><br>
+  <%= link_to "Admin Sign In", new_admin_session_path %><br><br>
+<% end %>
+
+<% if customer_signed_in? %>
+<%= link_to "Compras", sales_path %><br><br>
+<%= link_to "Telefones", phones_path %><br><br>
+<%= link_to "Endereços", addresses_path %><br><br>
+<%= link_to "Cliente", customer_path(current_customer) %><br><br>
+<%= link_to "Editar Login", edit_customer_registration_path %><br><br>
+<%= link_to 'Desativar Cadastro', deactivate_customer_path(current_customer) %><br><br>
+<%= link_to 'Log out', destroy_customer_session_path, method: :delete %>
+<% end %>
+
+<% if admin_signed_in? %>
+<%= link_to "Vendas", index_admin_sales_path %><br><br>
+<%= link_to "Produtos", products_path %><br><br>
+<%= link_to "Clientes", customers_path %><br><br>
+<%= link_to "Editar Login", edit_admin_registration_path %><br><br>
+<%= link_to 'Log out', destroy_admin_session_path, method: :delete %>
+<% end %>

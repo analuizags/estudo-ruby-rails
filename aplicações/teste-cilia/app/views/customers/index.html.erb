@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= t('views.customers.index.title') %></h1>
+
+<%= form_tag customers_path, method: :get do %>
+  <div  style="display: flex; gap: 15px; align-items: flex-end;">
+    <div>
+      <%= label_tag :name, 'Name'%>
+      <%= text_field_tag :name, params[:name] %>
+    </div>
+
+    <div>
+      <%= label_tag :email, 'E-mail'%>
+      <%= text_field_tag :email, params[:email] %>
+    </div>
+
+    <div>
+      <%= label_tag :active, 'Active' %>
+      <%= select_tag :active, options_for_select([['', ''], ['Active', true],
+          ['Deactive', false]], params[:active]) %>
+    </div>
+
+    <div>
+      <%= submit_tag "Search" %>
+    </div>
+
+    <%= link_to "Reset", customers_path %>
+  </div>
+<% end %><br><br>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th><%= t('activerecord.attributes.customer.name') %></th>
+      <th><%= t('activerecord.attributes.customer.document') %></th>
+      <th><%= t('activerecord.attributes.customer.email') %></th>
+      <th><%= t('activerecord.attributes.customer.birthdate') %></th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.id %></td>
+        <td><%= customer.name %></td>
+        <td><%= customer.document %></td>
+        <td><%= customer.email %></td>
+        <td><%= customer.birthdate %></td>
+        <td><%= link_to 'Show', customer %></td>
+        <td>
+          <% if !customer.active? %>
+            <%= link_to 'Activate', activate_customer_path(customer) %>
+          <% else %>
+            <%= link_to 'Deactivate', deactivate_customer_path(customer) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
