@@ -1,12 +1,11 @@
 <% if !customer_signed_in? && !admin_signed_in?%>
   <%= link_to "Cliente Sign In", new_customer_session_path %><br><br>
-  <%= link_to "Cliente Sign Up", new_customer_registration_path %><br><br>
+  <%= link_to "Cliente Sign Up", new_customer_registration_path %><br><br><br>
   <%= link_to "Admin Sign In", new_admin_session_path %><br><br>
-  <%= link_to "Admin Sign Up", new_admin_registration_path %><br><br>
 <% end %>
 
 <% if customer_signed_in? %>
-<%= link_to "Vendas", sales_path %><br><br>
+<%= link_to "Compras", sales_path %><br><br>
 <%= link_to "Telefones", phones_path %><br><br>
 <%= link_to "Endereços", addresses_path %><br><br>
 <%= link_to "Cliente", customer_path(current_customer) %><br><br>
